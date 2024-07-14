@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <main className='font-bold text-2x1 text-red-600'>
-        React App
+    <main >
+      <Outlet />
     </main>
   );
 }
