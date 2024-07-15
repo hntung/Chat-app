@@ -3,14 +3,14 @@ const brycptjs = require('bcryptjs')
 
 async function registerUser(request, response) {
     try {
-        const { name, email, password, profile_pic } = request.body
+        const { name, email , password, profile_pic } = request.body
 
         const checkEmail = await UserModel.findOne({ email })
 
         if(checkEmail){
             return response.status(400).json({
-                message: 'Email already exists',
-                error: true
+                message : "Already user exits",
+                error : true,
             })
         }
 
