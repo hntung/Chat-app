@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import { BiLogOut } from "react-icons/bi";
 import Avatar from './Avatar';
 import { useSelector } from 'react-redux';
+import EditUserDetails from './EditUserDetails';
 
 const Sidebar = () => {
     const user = useSelector(state => state?.user)
+    const [editUserOpen, setEditUserOpen] = useState(false)
+
     return (
         <div className='w-full h-full'>
             <div className='bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between'>
@@ -25,11 +28,12 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <div className='flex flex-col items-center'>
-                    <button className='mx-auto' title={user?.name}>
+                    <button className='mx-auto' title={user?.name} onClick={()=> setEditUserOpen(true)}>
                         <Avatar 
                             width={40}
                             height={40}
                             name={user.name}
+                            imageUrl={user?.profile_pic}
                         />
                     </button>
                     <button className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200  rounded:' title='logout'>
@@ -42,6 +46,11 @@ const Sidebar = () => {
                     </button>
                 </div>
             </div>
+            {
+                editUserOpen && (
+                    <EditUserDetails onClose={()=> setEditUserOpen(false)} user={user}/>
+                )
+            }
         </div>
     )
 }
